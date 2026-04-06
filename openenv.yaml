@@ -1,0 +1,41 @@
+name: email-triage-openenv
+version: "1.0.0"
+description: >
+  A real-world email triage environment where an AI agent must classify
+  incoming emails as urgent, normal, spam, or delete — and optionally reply.
+tags:
+  - openenv
+  - email
+  - triage
+  - nlp
+observation_space:
+  type: object
+  fields:
+    - email_id: string
+    - subject: string
+    - body: string
+    - sender: string
+    - inbox_size: integer
+    - current_step: integer
+    - max_steps: integer
+action_space:
+  type: object
+  fields:
+    - email_id: string
+    - label: "urgent | normal | spam | delete"
+    - reply: "optional string"
+reward_range: [0.0, 1.0]
+tasks:
+  - id: easy
+    description: Triage 3 emails, mostly clear-cut cases.
+    difficulty: easy
+  - id: medium
+    description: Triage 5 mixed emails including ambiguous cases.
+    difficulty: medium
+  - id: hard
+    description: Triage 8 emails and provide replies to urgent ones.
+    difficulty: hard
+endpoints:
+  reset: POST /reset
+  step: POST /step
+  state: GET /state
