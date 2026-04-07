@@ -61,11 +61,11 @@ def run_task(task_key: str):
         total_reward = 0.0
         done = False
         while not done:
-            action = agent_fn(obs)
-            obs, reward, done, info = env.step(action)
-            total_reward += reward
-            step += 1
-            print(json.dumps({
+           action = agent_fn(obs)
+        obs, reward, done, info = env.step(action)
+        total_reward += reward
+        step += 1 
+        print(json.dumps({
                 "type": "STEP",
                 "step": step,
                 "action_label": action.label,
