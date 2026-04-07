@@ -11,8 +11,7 @@ MODEL_NAME = os.getenv("MODEL_NAME", "meta-llama/Llama-3.2-3B-Instruct")
 HF_TOKEN = os.getenv("HF_TOKEN", "")
 
 if not HF_TOKEN:
-    print(json.dumps({"type": "ERROR", "message": "HF_TOKEN not set"}))
-    sys.exit(1)
+    print(json.dumps({"type": "WARN", "message": "HF_TOKEN not set, using empty token"}))
 
 client = OpenAI(api_key=HF_TOKEN, base_url=API_BASE_URL)
 
