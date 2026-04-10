@@ -89,11 +89,8 @@ def run_task(task_key: str):
             "hard": 8
         }.get(task_key, 5)
 
-        print(json.dumps({
-            "type": "START",
-            "task": task_key,
-            "difficulty": task.get("difficulty", "unknown")
-        }))
+        #  START block
+        print("[START]")
 
         env = EmailTriageEnv(max_steps=max_steps)
         obs = env.reset()
@@ -108,11 +105,11 @@ def run_task(task_key: str):
             try:
                 obs, reward, done, info = env.step(action)
             except Exception as step_error:
-                print(json.dumps({
-                    "type": "WARN",
-                    "message": f"Step error: {str(step_error)}"
-                }))
+                print(f"[ERROR] {str(step_error)}")
                 break
+
+            #  STEP block 
+            print("[STEP]")
 
             total_reward += reward
             step += 1
@@ -122,16 +119,12 @@ def run_task(task_key: str):
             "steps": step
         }
 
-        print(json.dumps({
-            "type": "FINAL",
-            "all_scores": scores
-        }))
+        #  END block
+        print("[END]")
+        print(json.dumps(scores))
 
     except Exception as e:
-        print(json.dumps({
-            "type": "ERROR",
-            "message": str(e)
-        }))
+        print(f"[ERROR] {str(e)}")
 
 # ================= MAIN =================
 if __name__ == "__main__":
