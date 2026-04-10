@@ -89,7 +89,6 @@ def run_task(task_key: str):
             "hard": 8
         }.get(task_key, 5)
 
-        # START block
         print("[START]")
 
         env = EmailTriageEnv(max_steps=max_steps)
@@ -108,23 +107,18 @@ def run_task(task_key: str):
                 print(f"[ERROR] {str(step_error)}")
                 break
 
-            # STEP block
             print("[STEP]")
-
             total_reward += reward
             step += 1
 
-        # Normalize score between (0,1)
+        # Normalize the reward to a score strictly between 0 and 1 (but not equal to 0 or 1)
         normalized_score = total_reward / max_steps
 
-        # Ensure strictly between 0 and 1
+        # Ensure it's strictly between (0, 1) by adding a small buffer
         normalized_score = max(0.01, min(0.99, normalized_score))
 
-        scores = {
-            "score": normalized_score
-        }
+        scores = {"score": normalized_score}
 
-        # END block
         print("[END]")
         print(json.dumps(scores))
 
