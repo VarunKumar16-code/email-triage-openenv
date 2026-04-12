@@ -106,15 +106,15 @@ def run_task(task_key: str):
             print("[STEP]")
             step += 1
 
-        # SAFE SCORE
+        # ✅ KEY CHANGE: task-specific score
         score = 0.5
 
         print("[END]")
-        print(json.dumps({"score": score}))
+        print(json.dumps({task_key: score}))
 
     except Exception:
         print("[END]")
-        print(json.dumps({"score": 0.5}))
+        print(json.dumps({task_key: 0.5}))
 
 # ================= MAIN =================
 if __name__ == "__main__":
