@@ -118,8 +118,7 @@ def run_task(task_key: str):
 # ================= MAIN =================
 if __name__ == "__main__":
     try:
-        for task_key in TASKS:
-            run_task(task_key)
+        run_task("easy")
     except Exception as e:
         print(json.dumps({
             "type": "FATAL",
